@@ -5,6 +5,7 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
 
 from .model_service import ensure_model
+from .config import settings
 
 
 router = APIRouter()
@@ -26,7 +27,8 @@ class PredictResponse(BaseModel):
 
 @router.post("/predict", response_model=PredictResponse)
 def predict(payload: PredictRequest, data_dir: Optional[str] = None):
-    model = ensure_model(Path(data_dir) if data_dir else None)
+    default_dir = Path(settings.data_dir)
+    model = ensure_model(Path(data_dir) if data_dir else default_dir)
     import pandas as pd
 
     row = {
