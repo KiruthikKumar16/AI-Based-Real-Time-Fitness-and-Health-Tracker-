@@ -1,0 +1,28 @@
+# Calories Burnt Prediction - Fitness Analytics Requirements
+
+# Core Data Science Libraries
+numpy>=1.21.0
+pandas>=1.3.0
+
+# Machine Learning Libraries
+scikit-learn>=1.0.0
+xgboost>=1.5.0
+
+# Visualization Libraries  
+matplotlib>=3.4.0
+seaborn>=0.11.0
+
+# Jupyter Environment
+jupyter>=1.0.0
+ipykernel>=6.0.0
+
+# Kaggle Integration (Optional)
+kaggle>=1.5.0
+
+# Additional Utilities for Fitness Analytics
+scipy>=1.7.0
+joblib>=1.1.0
+
+# Optional: Advanced ML Libraries
+# lightgbm>=3.3.0
+# catboost>=1.0.0
