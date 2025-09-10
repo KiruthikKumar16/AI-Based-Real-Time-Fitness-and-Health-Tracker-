@@ -1,10 +1,11 @@
 import './App.css'
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 
 const API = 'http://127.0.0.1:8000'
 
 function Login({ onToken }: { onToken: (t: string) => void }) {
+  const navigate = useNavigate()
   const [username, setUsername] = useState('demo')
   const [password, setPassword] = useState('demo123!')
   const [msg, setMsg] = useState('')
@@ -15,6 +16,7 @@ function Login({ onToken }: { onToken: (t: string) => void }) {
     if (!res.ok) { setMsg('Login failed'); return }
     const data = await res.json()
     onToken(data.access_token)
+    navigate('/')
   }
 
   return (
