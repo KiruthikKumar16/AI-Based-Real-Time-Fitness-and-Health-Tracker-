@@ -1,5 +1,6 @@
 import './App.css'
 import { BrowserRouter, Routes, Route, Navigate, useNavigate } from 'react-router-dom'
+import ReactECharts from 'echarts-for-react'
 import { useState } from 'react'
 
 const API = 'http://127.0.0.1:8000'
@@ -51,17 +52,81 @@ function Dashboard({ token }: { token: string }) {
     setRows(await res.json())
   }
 
+  const chartOptions = {
+    backgroundColor: 'transparent',
+    tooltip: { trigger: 'axis' },
+    grid: { left: 40, right: 20, top: 30, bottom: 40 },
+    xAxis: { type: 'category', data: rows.map(r => r.created_at), axisLabel: { color: '#94a3b8' } },
+    yAxis: { type: 'value', name: 'Calories', axisLabel: { color: '#94a3b8' }, splitLine: { lineStyle: { color: '#1f2937' } } },
+    series: [{
+      name: 'Calories',
+      type: 'line',
+      smooth: true,
+      symbol: 'circle',
+      symbolSize: 6,
+      itemStyle: { color: '#60a5fa' },
+      areaStyle: { color: 'rgba(96,165,250,0.15)' },
+      data: rows.map(r => Math.round(r.calories))
+    }]
+  }
+
   return (
     <div className="card">
-      <h2>Dashboard</h2>
-      <div className="grid">
-        {(['age','gender','height','weight','duration','heart_rate','body_temp'] as const).map(k => (
-          <input key={k} placeholder={k} value={(form as any)[k]} onChange={e => setForm({ ...form, [k]: Number(e.target.value) })} />
-        ))}
+      <h1 className="title">Dashboard</h1>
+
+      <section className="about">
+        <p>
+          This system provides real-time fitness and health tracking with intelligent movement analysis, routine logging,
+          goal tracking, and progress visualization in a single, user-friendly interface. Users can monitor workout reps,
+          calorie burn, hydration, and more — with instant visual feedback, weekly summaries, and progress charts.
+          All processing is local to maintain privacy and low system overhead. By integrating smart tracking, health
+          analytics, and real-time interaction, it promotes a consistent, safe, and engaging fitness journey.
+        </p>
+        <p className="muted">
+          The model predicts total calories burned (regression) from personal metrics (age, gender, height, weight)
+          and exercise metrics (duration, heart rate, body temperature).
+        </p>
+      </section>
+
+      <div className="grid labeled">
+        <label>
+          <span>Age</span>
+          <input placeholder="Age" value={form.age} onChange={e => setForm({ ...form, age: Number(e.target.value) })} />
+        </label>
+        <label>
+          <span>Gender (0 male, 1 female)</span>
+          <input placeholder="Gender" value={form.gender} onChange={e => setForm({ ...form, gender: Number(e.target.value) })} />
+        </label>
+        <label>
+          <span>Height (cm)</span>
+          <input placeholder="Height" value={form.height} onChange={e => setForm({ ...form, height: Number(e.target.value) })} />
+        </label>
+        <label>
+          <span>Weight (kg)</span>
+          <input placeholder="Weight" value={form.weight} onChange={e => setForm({ ...form, weight: Number(e.target.value) })} />
+        </label>
+        <label>
+          <span>Duration (min)</span>
+          <input placeholder="Duration" value={form.duration} onChange={e => setForm({ ...form, duration: Number(e.target.value) })} />
+        </label>
+        <label>
+          <span>Heart Rate (bpm)</span>
+          <input placeholder="Heart Rate" value={form.heart_rate} onChange={e => setForm({ ...form, heart_rate: Number(e.target.value) })} />
+        </label>
+        <label>
+          <span>Body Temp (°C)</span>
+          <input placeholder="Body Temp" value={form.body_temp} onChange={e => setForm({ ...form, body_temp: Number(e.target.value) })} />
+        </label>
       </div>
-      <button onClick={predict}>Predict</button>
-      <div>Calories: {cal?.toFixed?.(0) ?? '-'}</div>
-      <button onClick={loadHistory}>Load History</button>
+
+      <div className="actions">
+        <button onClick={predict}>Predict</button>
+        <div className="calories">Calories: {cal?.toFixed?.(0) ?? '-'}</div>
+        <button onClick={loadHistory}>Load History</button>
+      </div>
+
+      <ReactECharts option={chartOptions} notMerge style={{ height: '300px', width: '100%' }} />
+
       <table>
         <thead><tr><th>when</th><th>cal</th><th>age</th><th>hr</th></tr></thead>
         <tbody>
