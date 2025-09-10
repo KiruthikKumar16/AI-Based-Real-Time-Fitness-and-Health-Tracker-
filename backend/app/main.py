@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Depends, HTTPException, status
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 
 from .routers import router as api_router
@@ -10,6 +11,15 @@ from pydantic import BaseModel
 
 
 app = FastAPI(title="Fitness Calorie API", version="0.1.0")
+
+# CORS (allow local files and dev hosts)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.get("/health")

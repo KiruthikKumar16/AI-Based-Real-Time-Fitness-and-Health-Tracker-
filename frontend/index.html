@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Fitness Tracker Dashboard</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>AI Fitness & Health Tracker</h1>
+      <section class="auth">
+        <h2>Login</h2>
+        <input id="username" placeholder="username" />
+        <input id="password" type="password" placeholder="password" />
+        <button id="loginBtn">Login</button>
+        <span id="authMsg"></span>
+      </section>
+
+      <section class="predict">
+        <h2>Predict Calories</h2>
+        <div class="grid">
+          <input id="age" type="number" placeholder="Age" value="25" />
+          <select id="gender">
+            <option value="0">Male</option>
+            <option value="1">Female</option>
+          </select>
+          <input id="height" type="number" placeholder="Height (cm)" value="175" />
+          <input id="weight" type="number" placeholder="Weight (kg)" value="70" />
+          <input id="duration" type="number" placeholder="Duration (min)" value="45" />
+          <input id="heart_rate" type="number" placeholder="Heart Rate" value="140" />
+          <input id="body_temp" type="number" placeholder="Body Temp" value="37.5" />
+        </div>
+        <button id="predictBtn">Predict</button>
+        <div id="predOut"></div>
+      </section>
+
+      <section class="history">
+        <h2>History (Last 50)</h2>
+        <table id="histTable">
+          <thead>
+            <tr>
+              <th>When</th><th>Calories</th><th>Age</th><th>Gender</th>
+              <th>H</th><th>W</th><th>Dur</th><th>HR</th><th>T</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </section>
+    </div>
+
+    <script src="main.js"></script>
+  </body>
+  </html>
+
+
