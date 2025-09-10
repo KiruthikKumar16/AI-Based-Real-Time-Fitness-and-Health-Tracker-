@@ -1,0 +1,9 @@
+:root { color-scheme: dark; }
+body { margin: 0; font-family: system-ui, Arial, sans-serif; background: #0f172a; color: #e2e8f0; }
+.card { max-width: 900px; margin: 16px auto; background: #0b1220; border: 1px solid #334155; border-radius: 10px; padding: 16px; }
+.grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 8px 0; }
+input, button { padding: 8px; border-radius: 6px; border: 1px solid #334155; background: #0f172a; color: #e2e8f0; }
+button { background: #2563eb; border: none; cursor: pointer; }
+button:hover { background: #1d4ed8; }
+table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+th, td { padding: 6px 8px; border-bottom: 1px solid #334155; font-size: 14px; }
